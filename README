@@ -1,0 +1,40 @@
+<db:EntitiesTable id="userT">
+	<db:sort>
+		<mx:Sort>
+			<mx:SortField name="id" />
+		</mx:Sort>
+	</db:sort>
+	<db:schema>
+		<schema:Schema entityClass="{User}">
+			<schema:columns>
+				<schema:Column name="id"/>
+				<schema:Column name="firstName"/>
+				<schema:Column name="lastName"/>
+			</schema:columns>
+			<schema:relations>
+				<relation:OneToMany name="cars" columnName="id" referencedColumnName="user_id" table="{carsT}"/>
+			</schema:relations>
+		</schema:Schema>
+	</db:schema>
+</db:EntitiesTable>
+
+<db:EntitiesTable id="carsT">
+	<db:sort>
+		<mx:Sort>
+			<mx:SortField name="id" />
+		</mx:Sort>
+	</db:sort>
+	<db:schema>
+		<schema:Schema entityClass="{Car}">
+			<schema:columns>
+				<schema:Column name="id" />
+				<schema:Column name="user_id"/>
+				<schema:Column name="mark" />
+				<schema:Column name="model" />
+			</schema:columns>
+			<schema:relations>
+				<relation:ManyToOne name="user" table="{userT}"/>
+			</schema:relations>
+		</schema:Schema>
+	</db:schema>
+</db:EntitiesTable>

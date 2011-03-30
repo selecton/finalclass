@@ -41,14 +41,24 @@ package net.finalclass.db
 		public function fromXML(xml:XML) : void
 		{
 			var obj:Object = new Object();
-			for(var prop:String in xml)
+			var children:XMLList = xml.children();
+			var attribs:XMLList = xml.attributes();
+			var i:int = 0;
+			var prop:XML;
+			
+			for(i = 0; i < children.length(); i++)
 			{
-				if(xml.attributes().contains(prop) )	
-					obj[prop] = xml.attribute(prop);
-				else if( xml.elements().contains(prop) )
-					obj[prop] = xml.elements(prop);
+				prop = children[i] as XML;
+				obj[ prop.name() ] = prop.toString();
 			}
 			
+			for(i = 0; i < attribs.length(); i++)
+			{
+				prop = attribs[i] as XML;
+				
+				obj['parent_id'] += prop.localName() + '//'; 
+				obj[ prop.localName() ] = prop.toString();
+			}
 			fromObject(obj);
 		}
 		

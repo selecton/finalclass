@@ -1,5 +1,7 @@
 package net.finalclass.db {
 	
+	import flash.utils.getQualifiedClassName;
+	
 	import mx.collections.IList;
 	import mx.collections.Sort;
 	
@@ -22,34 +24,61 @@ package net.finalclass.db {
 			truncate();
 		}
 		
+		
 		/**
 		 * @private
 		 */
-		public function set dataProvider(value:IList) : void
+		public function set dataProvider(value:Object) : void
 		{
 			truncate();
-			for(var i:int = 0; i < value.length; i++)
+
+			if(value == null)
+				return;
+			else if(value is XML)
+				_addManyFromXML(XML(value).children());
+			else if(value is XMLList)
+				_addManyFromXML(value as XMLList);
+			if(value is IList)
+				_addManyFromIList(value as IList);
+			else if(value is Array)
+				_addManyFromArray(value as Array);
+		}
+		
+		private function _addManyFromXML(xmlList:XMLList) : void
+		{
+			for(var i:int = 0; i < xmlList.length(); i++)
 			{
-				var obj:Object = value.getItemAt(i) as Object;
-				var xml:XML = obj as XML;
-				var entity:Entity = obj as Entity;
-				if( entity == null )
-				{
-					entity = new Entity();
-					if( xml != null )
-					{
-						entity.fromXML(xml);
-					}
-					else if( obj != null )
-					{
-						entity.fromObj(obj);
-					}
-				}
-				add(value.getItemAt(i) as Entity);
+				var xml:XML = xmlList[i] as XML;
+				var entity:Entity = new Entity();
+				entity.fromXML(xml);
+				add(entity);
 			}
 		}
 		
-		public function get dataProvider() : IList
+		private function _addManyFromArray(array:Array) : void
+		{
+			for(var i:int = 0; i < array.length; i++) 
+			{
+				var item:Object = array[i] as Object;
+				var entity:Entity = new Entity();
+				entity.fromObject(item);
+				add(entity);
+			}
+		}
+		
+		private function _addManyFromIList(list:IList) : void
+		{
+			for(var i:int = 0; i < list.length; i++) 
+			{
+				var item:Object = list.getItemAt(i) as Object;
+				var entity:Entity = new Entity();
+				entity.fromObject(item);
+				add(entity);
+			}
+		}
+		
+		[Bindable]
+		public function get dataProvider() : Object
 		{
 			return _data;
 		}

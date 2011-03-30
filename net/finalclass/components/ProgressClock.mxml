@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx" 
+		 width="200" height="100">
+	
+	<fx:Script>
+		<![CDATA[
+			
+			private var _progressPercent:Number = 0;
+			
+			[Bindable]
+			public function set progressPercent(value:Number) : void
+			{
+				if(value < 0)
+					_progressPercent = 0;
+				else if(value > 100)
+					_progressPercent = 100;
+				else
+					_progressPercent = value;
+			}
+			
+			public function get progressPercent() : Number
+			{
+				return _progressPercent;
+			}
+			
+		]]>
+	</fx:Script>
+	
+	<s:Label id="display" 
+			 text="{progressPercent.toFixed(2) + '%'}"
+			 verticalCenter="10"
+			 horizontalCenter="0"
+			 width="199" height="32" 
+			 textAlign="center" 
+			 fontFamily="Courier New" 
+			 fontSize="{(36/100)*height}" 
+			 color="#848484" 
+			 fontWeight="bold"/>
+	
+	<s:Path data="M140,198 C141,49 349,45 348,198" winding="nonZero" x="{(-133/200)*width}" y="{(-74/100)*height}" width="100%" height="100%">
+		<s:stroke>
+			<s:SolidColorStroke color="#000000" alpha="1" weight="1" />
+		</s:stroke>
+	</s:Path>
+	
+	<s:Graphic x="{width/2}" y="{height}">
+		<s:Line xFrom="0" yFrom="0" xTo="{-width/2}" yTo="0" rotation="{180 * progressPercent / 100}">
+			<s:stroke>
+				<s:SolidColorStroke color="0x000000" weight="4"/>
+			</s:stroke>
+		</s:Line>
+	</s:Graphic>
+	
+</s:Group>

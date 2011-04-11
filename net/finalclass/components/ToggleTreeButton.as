@@ -6,6 +6,7 @@ package net.finalclass.components
 	import mx.events.FlexEvent;
 	import mx.states.State;
 	
+	import net.finalclass.events.ToggleTreeEvent;
 	import net.finalclass.skins.ToggleTreeButtonSkin;
 	
 	import spark.components.supportClasses.SkinnableComponent;
@@ -23,12 +24,12 @@ package net.finalclass.components
 	[SkinState("thirdDown")]
 	[SkinState("thirdDisabled")]
 	
-	[Event(name="enterFirst", type="flash.events.Event")]
-	[Event(name="exitFirst", type="flash.events.Event")]
-	[Event(name="enterSecond", type="flash.events.Event")]
-	[Event(name="exitSecond", type="flash.events.Event")]
-	[Event(name="enterThird", type="flash.events.Event")]
-	[Event(name="exitThird", type="flash.events.Event")]
+	[Event(name="enterFirst", type="net.finalclass.events.ToggleTreeEvent")]
+	[Event(name="exitFirst", type="net.finalclass.events.ToggleTreeEvent")]
+	[Event(name="enterSecond", type="net.finalclass.events.ToggleTreeEvent")]
+	[Event(name="exitSecond", type="net.finalclass.events.ToggleTreeEvent")]
+	[Event(name="enterThird", type="net.finalclass.events.ToggleTreeEvent")]
+	[Event(name="exitThird", type="net.finalclass.events.ToggleTreeEvent")]
 	public class ToggleTreeButton extends SkinnableComponent
 	{
 		
@@ -48,8 +49,6 @@ package net.finalclass.components
 		public function ToggleTreeButton()
 		{
 			super();
-			
-			setStyle("skinClass", ToggleTreeButtonSkin);
 			
 			_firstState = new State();
 			_firstState.name = STATE_FIRST;
@@ -120,32 +119,32 @@ package net.finalclass.components
 		
 		private function _enterFirst(event:FlexEvent) : void
 		{
-			dispatchEvent(new Event("enterFirst"));
+			dispatchEvent(new ToggleTreeEvent(ToggleTreeEvent.ENTER_FIRST));
 		}
 		
 		private function _exitFirst(event:FlexEvent) : void
 		{
-			dispatchEvent(new Event("exitFirst"));
+			dispatchEvent(new ToggleTreeEvent(ToggleTreeEvent.EXIT_FIRST));
 		}
 		
 		private function _enterSecond(event:FlexEvent) : void
 		{
-			dispatchEvent(new Event("enterSecond"));
+			dispatchEvent(new ToggleTreeEvent(ToggleTreeEvent.ENTER_SECOND));
 		}
 		
 		private function _exitSecond(event:FlexEvent) : void
 		{
-			dispatchEvent(new Event("exitSecond"));
+			dispatchEvent(new ToggleTreeEvent(ToggleTreeEvent.EXIT_SECOND));
 		}
 		
 		private function _enterThird(event:FlexEvent) : void
 		{
-			dispatchEvent(new Event("enterThird"));
+			dispatchEvent(new ToggleTreeEvent(ToggleTreeEvent.ENTER_THIRD));
 		}
 		
 		private function _exitThird(event:FlexEvent) : void
 		{
-			dispatchEvent(new Event("exitThird"));
+			dispatchEvent(new ToggleTreeEvent(ToggleTreeEvent.EXIT_THIRD));
 		}
 		
 		private function _onMouseDown(event:MouseEvent) : void

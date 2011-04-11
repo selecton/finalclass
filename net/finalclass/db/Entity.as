@@ -6,7 +6,7 @@ package net.finalclass.db
 	import net.finalclass.db.schema.Schema;
 	import net.finalclass.db.schema.relation.ManyToOne;
 	import net.finalclass.db.schema.relation.OneToMany;
-	import net.finalclass.db.schema.relation.OnetToOne;
+	import net.finalclass.db.schema.relation.OneToOne;
 	import net.finalclass.db.schema.relation.Relation;
 
 	
@@ -28,14 +28,23 @@ package net.finalclass.db
 		
 		public function fromObject(obj:Object) : void
 		{
+			var prop:String;
+			var old:Object;
+			
 			if( isAttached() )
 			{
-				var old:Object = _item;
-				_item = obj;
+				old = _item;
+				
+				for(prop in obj)
+					this[prop] = obj[prop];
+				
 				_table.update(this, old);
 			}
 			else
-				_item = obj;
+			{
+				for(prop in obj)
+					this[prop] = obj[prop];
+			}
 		}
 		
 		public function fromXML(xml:XML) : void
@@ -90,6 +99,9 @@ package net.finalclass.db
 		}
 		
 		override flash_proxy function getProperty(name:*):* {
+			if( _table == null )
+				return _retrieve('name');
+			
 			var schema:Schema = _table.schema;
 			
 			if( schema.hasColumn(name) )
@@ -98,7 +110,7 @@ package net.finalclass.db
 			if( schema.hasRelation(name) )
 			{
 				var relation:Relation = schema.getRelation(name);
-				if( relation is OnetToOne || relation is ManyToOne)
+				if( relation is OneToOne || relation is ManyToOne)
 					return relation.table.findFirstBy(relation.referencedColumnName, _retrieve(relation.columnName) );
 				else if(relation is OneToMany)
 					return relation.table.findBy(relation.referencedColumnName, _retrieve(relation.columnName) );
@@ -114,11 +126,13 @@ package net.finalclass.db
 		
 		public function toString() : String
 		{
+			if( _table == null )
+				return _item.toString();
 			var columns:Array = _table.schema.columns;
 			var out:String = 'Entity----------' + "\n";
 			for(var i:int = 0; i < columns.length; i++)
 			{
-				out += "\t" + columns[i].name + ' = ' + _item[ columns[i].name ] + "\n";
+				out += "\t" + columns[i].name + ' = ' + this[ columns[i].name ] + "\n";
 			}
 			out += '---------------' + "\n";
 			return out;

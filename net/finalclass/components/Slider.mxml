@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx" 
+		 height="52" width="10"
+		 addedToStage="_onAddedToStage(event)"
+		 removedFromStage="_onRemovedFromStage(event)"
+		 mouseDown="_onMouseDown(event)"
+		 >
+
+	<fx:Script>
+		<![CDATA[
+			import mx.core.FlexGlobals;
+			
+			
+			private var _percentage:int = 60;
+			
+			private var _isMoving:Boolean = false;
+			
+			[Bindable]
+			public function set percentage(value:Number) : void
+			{
+				if( value < 0 )
+					value = 0;
+				if( value > 100 )
+					value = 100;
+				
+				_percentage = value;
+			}
+			
+			public function get percentage() : Number
+			{
+				return _percentage;
+			}
+			
+			protected function _onMouseDown(event:MouseEvent):void
+			{
+				event.stopPropagation();
+				_onMouseMove(event);
+				_isMoving = true;
+				addEventListener(MouseEvent.MOUSE_MOVE, _onMouseMove, false, 0, true);
+			}
+
+			protected function _onMouseUp(event:MouseEvent):void
+			{
+				_isMoving = false;
+				removeEventListener(MouseEvent.MOUSE_MOVE, _onMouseMove);
+			}
+			
+			private function _onMouseMove(event:MouseEvent) : void
+			{
+				var localY:int = event.localY;
+				if( localY < 0 )
+					localY = 0;
+				if( localY > height )
+					localY = height;
+				
+				var tmpZoom:Number = Math.ceil( (height - localY) * 100 / height );
+				
+				if( tmpZoom > 100 )
+					tmpZoom = 100;
+				if( tmpZoom < 0 )
+					tmpZoom = 0;
+				
+				percentage = tmpZoom;
+			}
+
+
+			protected function _onAddedToStage(event:Event):void
+			{
+				FlexGlobals.topLevelApplication
+					.stage.addEventListener(MouseEvent.MOUSE_UP, _onMouseUp, false, 0, true);
+			}
+
+			protected function _onRemovedFromStage(event:Event) : void
+			{
+				FlexGlobals.topLevelApplication
+					.stage.removeEventListener(MouseEvent.MOUSE_UP, _onMouseUp);
+			}
+			
+		]]>
+	</fx:Script>
+
+	
+	
+	<s:states>
+		<s:State name="normal" />
+		<s:State name="disabled" />
+	</s:states>
+	
+	<s:Rect height="52" width="10" x="0.5" y="0.5">
+		<s:fill>
+			<s:SolidColor color="0xffffff" alpha="0" />
+		</s:fill>
+		<s:stroke>
+			<s:SolidColorStroke caps="none" color="#000000" joints="miter" miterLimit="4" weight="1"/>
+		</s:stroke>
+		<s:filters>
+			<s:DropShadowFilter blurX="4.0" hideObject="false" blurY="4.0" distance="4.0" inner="false" color="0x000000" strength="1" alpha="0.5" quality="2" knockout="false" angle="45.0"/>
+		</s:filters>
+	</s:Rect>
+	
+	<s:Rect height="{(height - 2) * percentage / 100}" width="9" left="1" bottom="1" right="1">
+		<s:fill>
+			<s:LinearGradient rotation="90">
+				<s:GradientEntry alpha="1.0" color="#666666" ratio="0"/>
+				<s:GradientEntry alpha="1.0" color="#333333" ratio="0.9803921568627451"/>
+			</s:LinearGradient>
+		</s:fill>
+	</s:Rect>
+	<s:Group x="2" y="2">
+		<s:Line x="0.5" xTo="6" y="3.5">
+			<s:stroke>
+				<s:SolidColorStroke caps="none" color="#000000" joints="miter" miterLimit="4" weight="1"/>
+			</s:stroke>
+		</s:Line>
+		<s:Line x="3.5" y="0.5" yTo="6">
+			<s:stroke>
+				<s:SolidColorStroke caps="none" color="#000000" joints="miter" miterLimit="4" weight="1"/>
+			</s:stroke>
+		</s:Line>
+	</s:Group>
+	<s:Line x="2.5" xTo="6" y="49.5">
+		<s:stroke>
+			<s:SolidColorStroke caps="none" color="#FFFFFF" joints="miter" miterLimit="4" weight="1"/>
+		</s:stroke>
+	</s:Line>
+	
+</s:Group>

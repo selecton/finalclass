@@ -1,0 +1,18 @@
+/* CSS file */
+
+@namespace fc "http://fc.finalclass.net";
+
+fc|ManualToggleButton 
+{
+	skinClass: ClassReference("spark.skins.spark.ToggleButtonSkin");
+}
+
+fc|DynamicImageButton
+{
+	skinClass: ClassReference("net.finalclass.skins.DynamicImageButtonSkin");
+}
+
+fc|ToggleTreeButton
+{
+	skinClass: ClassReference("net.finalclass.skins.ToggleTreeButtonSkin");
+}

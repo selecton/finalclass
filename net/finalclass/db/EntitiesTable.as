@@ -71,8 +71,25 @@ package net.finalclass.db {
 			for(var i:int = 0; i < list.length; i++) 
 			{
 				var item:Object = list.getItemAt(i) as Object;
-				var entity:Entity = new Entity();
-				entity.fromObject(item);
+				var entity:Entity;
+				if( item is Entity )
+				{
+					entity = Entity(item);
+				}
+				else if(item is XML)
+				{
+					entity = new Entity();
+					entity.fromXML(item as XML);
+				}
+				else if(item is Object)
+				{
+					entity = new Entity();
+					entity.fromObject(entity);
+				}
+				else
+				{
+					continue;
+				}
 				add(entity);
 			}
 		}

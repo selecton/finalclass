@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		xmlns:s="library://ns.adobe.com/flex/spark" 
+		xmlns:mx="library://ns.adobe.com/flex/mx"
+		alpha.disabled="0.5"
+		width="20" height="20">
+	
+	<fx:Metadata>
+		[HostComponent("net.finalclass.components.ToggleTreeButton")]
+	</fx:Metadata>
+	
+	
+	<s:states>
+		<s:State name="firstUp" stateGroups="first, up"/>
+		<s:State name="firstOver" stateGroups="first, over"/>
+		<s:State name="firstDown" stateGroups="first, down"/>
+		<s:State name="firstDisabled" stateGroups="first, disabled"/>
+		<s:State name="secondUp" stateGroups="second, up"/>
+		<s:State name="secondOver" stateGroups="second, over"/>
+		<s:State name="secondDown" stateGroups="second, down"/>
+		<s:State name="secondDisabled" stateGroups="second, disabled"/>
+		<s:State name="thirdUp" stateGroups="third, up"/>
+		<s:State name="thirdOver" stateGroups="third, over"/>
+		<s:State name="thirdDown" stateGroups="third, down"/>
+		<s:State name="thirdDisabled" stateGroups="third, disabled"/>
+	</s:states>
+	
+	
+	<s:Rect left="0" right="0" top="0" bottom="0">
+		<s:stroke>
+			<s:SolidColorStroke weight="1" 
+								color.first="0xff0000"
+								color.second="0x00ff00"
+								color.third="0x0000ff"/>
+		</s:stroke>
+		<s:fill>
+			<s:SolidColor color="0x000000" />
+		</s:fill>
+	</s:Rect>
+	
+	
+</s:Skin>

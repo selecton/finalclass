@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<componentPackage>
+
+	<!-- Components -->
+    <component class="net.finalclass.components.ManualToggleButton"/>
+    <component class="net.finalclass.components.DynamicImageButton"/>
+    <component class="net.finalclass.components.ToggleTreeButton"/>
+    <component class="net.finalclass.components.ProgressClock"/>
+    <component class="net.finalclass.components.Slider"/>
+    
+    <!-- DB -->
+    <component class="net.finalclass.db.EntitiesCollection"/>
+    <component class="net.finalclass.db.EntitiesTable"/>
+    <component class="net.finalclass.db.Entity"/>
+    <component class="net.finalclass.db.schema.Column"/>
+    <component class="net.finalclass.db.schema.Schema"/>
+    <component class="net.finalclass.db.schema.relation.ManyToOne"/>
+    <component class="net.finalclass.db.schema.relation.OneToMany"/>
+    <component class="net.finalclass.db.schema.relation.OneToOne"/>
+    
+    <!-- Utils -->
+    <component class="net.finalclass.utils.CreationAwareModuleLoader"/>
+    
+</componentPackage>

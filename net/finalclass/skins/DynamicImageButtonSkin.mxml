@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:SparkSkin xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			 xmlns:s="library://ns.adobe.com/flex/spark" 
+			 xmlns:mx="library://ns.adobe.com/flex/mx"
+             alpha.disabled="0.5">
+	
+    <fx:Metadata>
+		[HostComponent("net.finalclass.components.DynamicImageButton")]
+	</fx:Metadata>
+    
+    <s:states>
+        <s:State name="up" />
+        <s:State name="over" />
+        <s:State name="down" />
+        <s:State name="disabled" />
+    </s:states>
+    
+	
+	<mx:Image id="image" 
+
+			  width="32" height="32">
+		
+		<mx:filters>
+			
+			<s:BevelFilter includeIn="over" blurX="4.0" blurY="4.0" distance="4.0" highlightColor="0xFFFFFF" strength="1" quality="2" highlightAlpha="1.0" knockout="false" shadowAlpha="1.0" type="inner" shadowColor="0x000000" angle="45.0"/>
+			<s:GlowFilter includeIn="over" blurX="6.0" blurY="6.0" inner="false" color="#B7853E" strength="1" alpha="1.0" quality="2" knockout="false"/>
+			
+			<s:BevelFilter includeIn="down" blurX="4.0" blurY="4.0" distance="4.0" highlightColor="#000000" strength="1" quality="2" highlightAlpha="1.0" knockout="false" shadowAlpha="1.0" type="inner" shadowColor="#FFFFFF" angle="45.0"/>
+		</mx:filters>
+	</mx:Image>
+	
+</s:SparkSkin>

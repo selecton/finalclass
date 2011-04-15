@@ -64,8 +64,6 @@ package net.finalclass.db
 			for(i = 0; i < attribs.length(); i++)
 			{
 				prop = attribs[i] as XML;
-				
-				obj['parent_id'] += prop.localName() + '//'; 
 				obj[ prop.localName() ] = prop.toString();
 			}
 			fromObject(obj);
@@ -100,7 +98,7 @@ package net.finalclass.db
 		
 		override flash_proxy function getProperty(name:*):* {
 			if( _table == null )
-				return _retrieve('name');
+				return _retrieve(name);
 			
 			var schema:Schema = _table.schema;
 			
@@ -125,14 +123,24 @@ package net.finalclass.db
 
 		
 		public function toString() : String
-		{
-			if( _table == null )
-				return _item.toString();
-			var columns:Array = _table.schema.columns;
+		{	
+			
 			var out:String = 'Entity----------' + "\n";
-			for(var i:int = 0; i < columns.length; i++)
+			
+			if( _table == null )
 			{
-				out += "\t" + columns[i].name + ' = ' + this[ columns[i].name ] + "\n";
+				for(var prop:String in _item)
+				{
+					out += "\t" + prop + ' = ' + _item[prop] + "\n";
+				}
+			}
+			else
+			{
+				var columns:Array = _table.schema.columns;
+				for(var i:int = 0; i < columns.length; i++)
+				{
+					out += "\t" + columns[i].name + ' = ' + this[ columns[i].name ] + "\n";
+				}
 			}
 			out += '---------------' + "\n";
 			return out;

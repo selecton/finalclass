@@ -8,6 +8,9 @@
     <component class="net.finalclass.components.ProgressClock"/>
     <component class="net.finalclass.components.Slider"/>
     
+    <!-- Layouts -->
+    <component class="net.finalclass.layouts.FlowLayout"/>
+    
     <!-- DB -->
     <component class="net.finalclass.db.EntitiesCollection"/>
     <component class="net.finalclass.db.EntitiesTable"/>

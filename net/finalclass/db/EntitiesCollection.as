@@ -22,5 +22,10 @@ package net.finalclass.db
 		{
 			return getItemIndex(item) != -1;
 		}
+		
+		public function getEntityAt(index:int) : Entity
+		{
+			return getItemAt(index) as Entity;
+		}
 	}
 }

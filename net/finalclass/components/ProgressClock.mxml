@@ -5,18 +5,28 @@
 	
 	<fx:Script>
 		<![CDATA[
+			import net.finalclass.events.ValueEvent;
 			
 			private var _progressPercent:Number = 0;
 			
 			[Bindable]
 			public function set progressPercent(value:Number) : void
 			{
+				var newValue:Number = 0;
+				
 				if(value < 0)
-					_progressPercent = 0;
+					newValue = 0;
 				else if(value > 100)
-					_progressPercent = 100;
+					newValue = 100;
 				else
-					_progressPercent = value;
+					newValue = value;
+				
+				if( newValue > _progressPercent )
+					dispatchEvent(new ValueEvent(ValueEvent.INCREASE));
+				else if( newValue < _progressPercent )
+					dispatchEvent(new ValueEvent(ValueEvent.DECREASE));
+				
+				_progressPercent = newValue;
 			}
 			
 			public function get progressPercent() : Number
@@ -26,6 +36,13 @@
 			
 		]]>
 	</fx:Script>
+	
+	<fx:Metadata>
+		[Event(name="increase", type="net.finalclass.events.ValueEvent")]
+		[Event(name="decrease", type="net.finalclass.events.ValueEvent")]
+		[Effect(name="increaseEffect", event="increase")]
+		[Effect(name="decreaseEffect", event="decrease")]
+	</fx:Metadata>
 	
 	<s:Label id="display" 
 			 text="{progressPercent.toFixed(2) + '%'}"

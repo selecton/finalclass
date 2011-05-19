@@ -44,7 +44,7 @@ package net.finalclass.db.schema
 		
 		public function setEntityClass(entityClass:Class) : Schema
 		{
-			entityClass = entityClass;
+			this.entityClass = entityClass;
 			return this;
 		}
 		

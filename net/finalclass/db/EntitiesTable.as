@@ -49,7 +49,7 @@ package net.finalclass.db {
 			for(var i:int = 0; i < xmlList.length(); i++)
 			{
 				var xml:XML = xmlList[i] as XML;
-				var entity:Entity = new Entity();
+				var entity:Entity = new _schema.entityClass();
 				entity.fromXML(xml);
 				add(entity);
 			}
@@ -60,7 +60,7 @@ package net.finalclass.db {
 			for(var i:int = 0; i < array.length; i++) 
 			{
 				var item:Object = array[i] as Object;
-				var entity:Entity = new Entity();
+				var entity:Entity = new _schema.entityClass();
 				entity.fromObject(item);
 				add(entity);
 			}
@@ -78,12 +78,12 @@ package net.finalclass.db {
 				}
 				else if(item is XML)
 				{
-					entity = new Entity();
+					entity = new _schema.entityClass();
 					entity.fromXML(item as XML);
 				}
 				else if(item is Object)
 				{
-					entity = new Entity();
+					entity = new _schema.entityClass();
 					entity.fromObject(entity);
 				}
 				else
